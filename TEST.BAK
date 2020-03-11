@@ -1,0 +1,48 @@
+#include <graphics.h>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <dos.h>
+#include <string.h>
+#include "c:\cld\basic.h"
+#include "c:\cld\mouse.h"
+
+
+void main(void)
+{
+	int gdriver=DETECT,gmode,first=1;
+	char source[50],destination[50];
+	registerbgidriver(EGAVGA_driver);
+	registerbgifont(triplex_font);
+	initgraph(&gdriver,&gmode,"");
+//	initgraph(&gdriver,&gmode,"d:\\tc\\bgi");
+	comman2(0,0,getmaxx(),getmaxy(),1);
+	settextstyle(TRIPLEX_FONT, HORIZ_DIR, 5);
+	setcolor(0);
+	outtextxy(32,39,"Computer Logic and Design");
+	outtextxy(33,40,"Computer Logic and Design");
+	setcolor(14);
+	outtextxy(31,38,"Computer Logic and Design");
+	outtextxy(30,38,"Computer Logic and Design");
+	comman(130,120,515,320,7);
+	comman1(260,200,489,220,15);
+	setcolor(0);
+	settextstyle(2,0,5);
+	outtextxy(170,140,"Enter the path of Destination :");
+	outtextxy(160,200,"Destination :");
+	strcpy(destination,"C:\\CLD");
+	comman2(263,203,315,218,19);
+	outtextxy(265,203,destination);
+	char ch=getch();
+	if (ch==13)
+	{
+		comman2(263,203,320,218,15);
+		outtextxy(265,203,destination);
+	}
+	else
+	{
+		comman2(263,203,320,218,15);
+	}
+getch();
+closegraph();
+}

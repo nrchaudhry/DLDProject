@@ -1,0 +1,126 @@
+#include <graphics.h>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <dos.h>
+#include <string.h>
+#include "d:\cld\basic.h"
+#include "d:\cld\mouse.h"
+#include "d:\cld\circuit.h"
+
+void distributive(void);
+void commanproof(int col,int row,char name[]);
+void endproof(void);
+void xbar(int col,int row);
+void ybar(int col,int row);
+void xbar1(int col,int row);
+void ybar1(int col,int row);
+int button;
+
+void main(void)
+{	int gdriver=DETECT,gmode;
+	initgraph(&gdriver,&gmode,"d:\\tc\\bgi");
+
+	commanproof(110,6,"Consensus Laws");
+	setcolor(15);
+	line(getmaxx()/2,75,getmaxx()/2,getmaxy()-75);
+	setcolor(0);
+	line(getmaxx()/2-10,75,getmaxx()/2-10,getmaxy()-75);
+	setcolor(1);
+	settextstyle(1,0,2);
+	outtextxy(25,90,"a) X.Y+Y.Z+  .Z = X.Y+  .Z");
+	xbar1(145,90);xbar1(265,90);
+	outtextxy(312,90,"b)(X+Y)(Y+Z)( +Z) = (X+Y)( +Z)");
+	xbar1(440,90);xbar1(577,90);
+	setcolor(0);
+	settextstyle(2,0,6);
+	// proof of a part.
+	outtextxy(62,140,"e.g     X=1, Y=2 and Z=3");
+	outtextxy(40,170,"Put the values in this eq.");
+	outtextxy(62,220,"1 + (2.3) = (1 + 2).(1 + 3)");
+	outtextxy(112,250,"1 + 6 = 3 . 4");
+	outtextxy(152,280,"7 = 7");
+	// proof of b part.
+	outtextxy(362,140,"e.g    X=1, Y=2 and Z=3");
+	outtextxy(342,170,"Put the values in this eq.");
+	outtextxy(360,220,"1 . (2 + 3) = 1 . 2 + 1 . 3");
+	outtextxy(415,250,"1 . 5 = 2 + 3");
+	outtextxy(450,280,"5 = 5");
+	setcursorpos(getmaxx()/2,getmaxy()/2);
+	cursoron();
+	endproof();
+}
+
+
+void commanproof(int col,int row,char name[])
+{
+	comman3(0, 0, getmaxx(), getmaxy(), 11);
+	comman(0, 0, getmaxx(), 75,9);
+	settextstyle(TRIPLEX_FONT, HORIZ_DIR, 6);
+	setcolor(0);
+	outtextxy(col,row,name);
+	outtextxy(col+1,row+1,name);
+	setcolor(14);
+	outtextxy(col-1,row-2,name);
+	outtextxy(col-2,row-2,name);
+	comman3(15,76,getmaxx()-15,getmaxy()-15,15);
+
+	line(getmaxx()/2,75,getmaxx()/2,getmaxy()-75);
+	line(15,getmaxy()-75,getmaxx()-15,getmaxy()-75);
+	comman(270,420,370,450,7);
+	settextstyle(1,0,4);
+	outtextxy(300,415,"Ok");
+}
+
+void endproof(void)
+{
+	int iop=0,flag=0;
+	while (iop != 1)
+	{
+		button=getcursorpos(&x,&y);
+		if (button)
+		{
+			flag=1;
+			if (x >= 270 && x <= 370 && y >= 420 && y <= 450)
+			{
+				press1(270,420,370,450);
+			}
+		}
+		if ((!button)&&(flag))
+		{
+			flag=0;
+			press2(270,420,370,450);
+			delay(150);
+			if (x >= 270 && x <= 370 && y >= 420 && y <= 450)
+			{
+				sound();
+				iop=1;
+				cursoroff();
+			}
+		}
+	}
+}
+
+void xbar(int col,int row)
+{
+	outtextxy(col,row,"X");
+	outtextxy(col,row-10,"-");
+}
+
+void ybar(int col,int row)
+{
+	outtextxy(col,row,"Y");
+	outtextxy(col,row-10,"-");
+}
+
+void xbar1(int col,int row)
+{
+	outtextxy(col,row,"X");
+	outtextxy(col+1,row-12,"-");
+}
+
+void ybar1(int col,int row)
+{
+	outtextxy(col,row,"Y");
+	outtextxy(col+1,row-12,"-");
+}
